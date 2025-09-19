@@ -9,12 +9,17 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+        default: "bg-primary text-primary-foreground hover:bg-primary-hover civic-transition",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 civic-transition",
+        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground civic-transition",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 civic-transition",
+        ghost: "hover:bg-accent hover:text-accent-foreground civic-transition",
+        link: "text-primary underline-offset-4 hover:underline civic-transition",
+        // Civic-specific variants
+        hero: "civic-hero text-white border-white/20 hover:bg-white/10 hover:border-white/30 civic-transition shadow-lg",
+        success: "bg-success text-success-foreground hover:bg-success/90 civic-transition",
+        warning: "bg-warning text-warning-foreground hover:bg-warning/90 civic-transition",
+        critical: "bg-critical text-critical-foreground hover:bg-critical/90 civic-transition",
       },
       size: {
         default: "h-10 px-4 py-2",
