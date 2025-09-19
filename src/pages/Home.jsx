@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { statusLabels } from '@/data/mockData';
-import { Issue, mockIssues } from '@/data/mockData';
+import { mockIssues } from '@/data/mockData';
 import CivicMap from '@/components/Map/CivicMap';
 import IssueCard from '@/components/Issues/IssueCard';
 import { Button } from '@/components/ui/button';
@@ -27,11 +27,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   const [issues, setIssues] = useState(mockIssues);
   const [selectedIssue, setSelectedIssue] = useState(null);
-  const [filter, setFilter] = useState<{
-    status: string;
-    category: string;
-    search: string;
-  }>({
+  const [filter, setFilter] = useState({
     status: 'all',
     category: 'all',
     search: ''
@@ -64,7 +60,7 @@ const Home = () => {
     );
   };
 
-  const getStatusIcon = (status: string) => {
+  const getStatusIcon = (status) => {
     switch (status) {
       case 'open':
         return <AlertCircle className="h-4 w-4 text-critical" />;

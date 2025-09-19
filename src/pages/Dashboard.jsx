@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Issue, mockIssues, mockStats } from '@/data/mockData';
+import { mockIssues, mockStats } from '@/data/mockData';
 import StatsOverview from '@/components/Dashboard/StatsOverview';
 import IssueCard from '@/components/Issues/IssueCard';
 import CivicMap from '@/components/Map/CivicMap';
@@ -27,12 +27,7 @@ import { Link } from 'react-router-dom';
 const Dashboard = () => {
   const [issues, setIssues] = useState(mockIssues);
   const [activeTab, setActiveTab] = useState('overview');
-  const [filter, setFilter] = useState<{
-    status: string;
-    category: string;
-    priority: string;
-    assignee: string;
-  }>({
+  const [filter, setFilter] = useState({
     status: 'all',
     category: 'all', 
     priority: 'all',
@@ -69,7 +64,7 @@ const Dashboard = () => {
   const assigneeOptions = [
     'all',
     'unassigned',
-    ...Array.from(new Set(issues.filter(i => i.assignedTo).map(i => i.assignedTo!.name)))
+    ...Array.from(new Set(issues.filter(i => i.assignedTo).map(i => i.assignedTo.name)))
   ];
 
   const urgentIssues = issues.filter(issue => 

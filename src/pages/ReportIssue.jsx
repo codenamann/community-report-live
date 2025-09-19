@@ -78,14 +78,14 @@ const ReportIssue = () => {
     }
   };
 
-  const removeImage = (index: number) => {
+  const removeImage = (index) => {
     setForm({
       ...form,
       images: form.images.filter((_, i) => i !== index)
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!form.title || !form.description || !form.category || !form.reporterName || !form.reporterEmail) {
