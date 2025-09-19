@@ -1,38 +1,4 @@
-export interface Issue {
-  id: string;
-  title: string;
-  description: string;
-  category: 'infrastructure' | 'sanitation' | 'safety' | 'environment' | 'transportation';
-  status: 'open' | 'in-progress' | 'resolved' | 'closed';
-  priority: 'low' | 'medium' | 'high' | 'critical';
-  location: {
-    lat: number;
-    lng: number;
-    address: string;
-  };
-  reportedBy: {
-    id: string;
-    name: string;
-    email: string;
-  };
-  assignedTo?: {
-    id: string;
-    name: string;
-    department: string;
-  };
-  images: string[];
-  createdAt: string;
-  updatedAt: string;
-  resolvedAt?: string;
-  citizenVerification?: {
-    status: 'pending' | 'verified' | 'disputed';
-    verifiedAt?: string;
-    comments?: string;
-  };
-}
-
-// Mock data for demonstration
-export const mockIssues: Issue[] = [
+export const mockIssues = [
   {
     id: '1',
     title: 'Large Pothole on Main Street',

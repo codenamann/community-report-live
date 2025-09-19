@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { statusLabels } from '@/data/mockData';
 import { Issue, mockIssues } from '@/data/mockData';
 import CivicMap from '@/components/Map/CivicMap';
 import IssueCard from '@/components/Issues/IssueCard';
@@ -23,9 +24,9 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const Home: React.FC = () => {
-  const [issues, setIssues] = useState<Issue[]>(mockIssues);
-  const [selectedIssue, setSelectedIssue] = useState<Issue | null>(null);
+const Home = () => {
+  const [issues, setIssues] = useState(mockIssues);
+  const [selectedIssue, setSelectedIssue] = useState(null);
   const [filter, setFilter] = useState<{
     status: string;
     category: string;
@@ -47,7 +48,7 @@ const Home: React.FC = () => {
     return matchesStatus && matchesCategory && matchesSearch;
   });
 
-  const handleStatusChange = (issueId: string, newStatus: Issue['status']) => {
+  const handleStatusChange = (issueId, newStatus) => {
     setIssues(prevIssues => 
       prevIssues.map(issue => 
         issue.id === issueId 
@@ -56,7 +57,7 @@ const Home: React.FC = () => {
               status: newStatus,
               updatedAt: new Date().toISOString(),
               resolvedAt: newStatus === 'resolved' ? new Date().toISOString() : issue.resolvedAt,
-              citizenVerification: newStatus === 'resolved' ? { status: 'pending' as const } : issue.citizenVerification
+              citizenVerification: newStatus === 'resolved' ? { status: 'pending' } : issue.citizenVerification
             }
           : issue
       )

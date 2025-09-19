@@ -1,22 +1,7 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { Issue, mockIssues, mockStats } from '@/data/mockData';
+import React, { createContext, useContext, useState } from 'react';
+import { mockIssues, mockStats } from '@/data/mockData';
 
-interface IssueContextType {
-  issues: Issue[];
-  stats: typeof mockStats;
-  addIssue: (issue: Omit<Issue, 'id' | 'createdAt' | 'updatedAt'>) => void;
-  updateIssue: (issueId: string, updates: Partial<Issue>) => void;
-  deleteIssue: (issueId: string) => void;
-  getIssueById: (issueId: string) => Issue | undefined;
-  filterIssues: (filters: {
-    status?: string;
-    category?: string;
-    priority?: string;
-    search?: string;
-  }) => Issue[];
-}
-
-const IssueContext = createContext<IssueContextType | undefined>(undefined);
+const IssueContext = createContext(undefined);
 
 export const useIssues = () => {
   const context = useContext(IssueContext);
@@ -26,15 +11,12 @@ export const useIssues = () => {
   return context;
 };
 
-interface IssueProviderProps {
-  children: ReactNode;
-}
+export const IssueProvider = ({ children }) => {
 
-export const IssueProvider: React.FC<IssueProviderProps> = ({ children }) => {
-  const [issues, setIssues] = useState<Issue[]>(mockIssues);
+  const [issues, setIssues] = useState(mockIssues);
 
-  const addIssue = (newIssue: Omit<Issue, 'id' | 'createdAt' | 'updatedAt'>) => {
-    const issue: Issue = {
+  const addIssue = (newIssue) => {
+    const issue = {
       ...newIssue,
       id: Date.now().toString(),
       createdAt: new Date().toISOString(),
@@ -43,7 +25,7 @@ export const IssueProvider: React.FC<IssueProviderProps> = ({ children }) => {
     setIssues(prev => [issue, ...prev]);
   };
 
-  const updateIssue = (issueId: string, updates: Partial<Issue>) => {
+  const updateIssue = (issueId, updates) => {
     setIssues(prev =>
       prev.map(issue =>
         issue.id === issueId
@@ -53,20 +35,15 @@ export const IssueProvider: React.FC<IssueProviderProps> = ({ children }) => {
     );
   };
 
-  const deleteIssue = (issueId: string) => {
+  const deleteIssue = (issueId) => {
     setIssues(prev => prev.filter(issue => issue.id !== issueId));
   };
 
-  const getIssueById = (issueId: string) => {
+  const getIssueById = (issueId) => {
     return issues.find(issue => issue.id === issueId);
   };
 
-  const filterIssues = (filters: {
-    status?: string;
-    category?: string;
-    priority?: string;
-    search?: string;
-  }) => {
+  const filterIssues = (filters) => {
     return issues.filter(issue => {
       const matchesStatus = !filters.status || filters.status === 'all' || issue.status === filters.status;
       const matchesCategory = !filters.category || filters.category === 'all' || issue.category === filters.category;

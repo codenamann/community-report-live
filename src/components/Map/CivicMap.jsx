@@ -2,26 +2,18 @@ import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Icon, divIcon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Issue } from '@/data/mockData';
 import { Badge } from '@/components/ui/badge';
 import { statusLabels } from '@/data/mockData';
 
 // Fix for default markers in Leaflet with Vite
-delete (Icon.Default.prototype as any)._getIconUrl;
+delete Icon.Default.prototype._getIconUrl;
 Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
   iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
-interface CivicMapProps {
-  issues: Issue[];
-  onIssueSelect?: (issue: Issue) => void;
-  selectedIssue?: Issue | null;
-  className?: string;
-}
-
-const getStatusColor = (status: Issue['status']) => {
+const getStatusColor = (status) => {
   switch (status) {
     case 'open':
       return '#dc2626'; // red
@@ -36,7 +28,7 @@ const getStatusColor = (status: Issue['status']) => {
   }
 };
 
-const createCustomIcon = (status: Issue['status']) => {
+const createCustomIcon = (status) => {
   const color = getStatusColor(status);
   return divIcon({
     html: `
@@ -55,14 +47,14 @@ const createCustomIcon = (status: Issue['status']) => {
   });
 };
 
-const CivicMap: React.FC<CivicMapProps> = ({ 
+const CivicMap = ({ 
   issues, 
   onIssueSelect, 
   selectedIssue,
   className = "h-96 w-full" 
 }) => {
   // Center map on NYC (can be made dynamic based on user location)
-  const center: [number, number] = [40.7589, -73.9851];
+  const center = [40.7589, -73.9851];
 
   return (
     <div className={className}>

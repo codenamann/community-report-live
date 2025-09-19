@@ -1,24 +1,17 @@
 import React from 'react';
-import { Issue, statusLabels, categoryLabels } from '@/data/mockData';
+import { statusLabels, categoryLabels } from '@/data/mockData';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Calendar, MapPin, User, AlertCircle } from 'lucide-react';
 
-interface IssueCardProps {
-  issue: Issue;
-  onViewDetails?: (issue: Issue) => void;
-  onStatusChange?: (issueId: string, newStatus: Issue['status']) => void;
-  userRole?: 'citizen' | 'authority' | 'admin';
-}
-
-const IssueCard: React.FC<IssueCardProps> = ({ 
+const IssueCard = ({ 
   issue, 
   onViewDetails, 
   onStatusChange,
   userRole = 'citizen'
 }) => {
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
@@ -26,7 +19,7 @@ const IssueCard: React.FC<IssueCardProps> = ({
     });
   };
 
-  const getPriorityColor = (priority: Issue['priority']) => {
+  const getPriorityColor = (priority) => {
     switch (priority) {
       case 'critical':
         return 'bg-critical text-critical-foreground';

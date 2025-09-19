@@ -24,8 +24,8 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const Dashboard: React.FC = () => {
-  const [issues, setIssues] = useState<Issue[]>(mockIssues);
+const Dashboard = () => {
+  const [issues, setIssues] = useState(mockIssues);
   const [activeTab, setActiveTab] = useState('overview');
   const [filter, setFilter] = useState<{
     status: string;
@@ -50,7 +50,7 @@ const Dashboard: React.FC = () => {
     return matchesStatus && matchesCategory && matchesPriority && matchesAssignee;
   });
 
-  const handleStatusChange = (issueId: string, newStatus: Issue['status']) => {
+  const handleStatusChange = (issueId, newStatus) => {
     setIssues(prevIssues => 
       prevIssues.map(issue => 
         issue.id === issueId 
@@ -59,7 +59,7 @@ const Dashboard: React.FC = () => {
               status: newStatus,
               updatedAt: new Date().toISOString(),
               resolvedAt: newStatus === 'resolved' ? new Date().toISOString() : issue.resolvedAt,
-              citizenVerification: newStatus === 'resolved' ? { status: 'pending' as const } : issue.citizenVerification
+              citizenVerification: newStatus === 'resolved' ? { status: 'pending' } : issue.citizenVerification
             }
           : issue
       )
@@ -186,7 +186,7 @@ const Dashboard: React.FC = () => {
               <div className="civic-card p-6">
                 <h3 className="text-lg font-semibold mb-4">Priority Distribution</h3>
                 <div className="space-y-3">
-                  {(['critical', 'high', 'medium', 'low'] as const).map(priority => {
+                  {(['critical', 'high', 'medium', 'low']).map(priority => {
                     const count = issues.filter(i => i.priority === priority).length;
                     const percentage = issues.length > 0 ? (count / issues.length) * 100 : 0;
                     return (

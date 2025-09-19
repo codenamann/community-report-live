@@ -10,21 +10,7 @@ import {
   Calendar
 } from 'lucide-react';
 
-interface StatsData {
-  totalIssues: number;
-  openIssues: number;
-  inProgressIssues: number;
-  resolvedIssues: number;
-  closedIssues: number;
-  averageResolutionTime: string;
-  mostCommonCategory: string;
-}
-
-interface StatsOverviewProps {
-  stats: StatsData;
-}
-
-const StatsOverview: React.FC<StatsOverviewProps> = ({ stats }) => {
+const StatsOverview = ({ stats }) => {
   const statCards = [
     {
       title: 'Total Issues',

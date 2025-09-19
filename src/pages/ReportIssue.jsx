@@ -25,24 +25,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import CivicMap from '@/components/Map/CivicMap';
 
-interface IssueForm {
-  title: string;
-  description: string;
-  category: string;
-  priority: string;
-  location: {
-    lat: number;
-    lng: number;
-    address: string;
-  } | null;
-  images: string[];
-  reporterName: string;
-  reporterEmail: string;
-}
-
-const ReportIssue: React.FC = () => {
+const ReportIssue = () => {
   const navigate = useNavigate();
-  const [form, setForm] = useState<IssueForm>({
+  const [form, setForm] = useState({
     title: '',
     description: '',
     category: '',
@@ -63,7 +48,7 @@ const ReportIssue: React.FC = () => {
     address: 'Click on map to select location'
   };
 
-  const handleMapClick = (lat: number, lng: number) => {
+  const handleMapClick = (lat, lng) => {
     // In a real app, you'd reverse geocode to get the address
     setForm({
       ...form,
@@ -77,7 +62,7 @@ const ReportIssue: React.FC = () => {
     toast.success('Location selected successfully');
   };
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (event) => {
     const files = event.target.files;
     if (files) {
       // In a real app, you'd upload to a service and get URLs
